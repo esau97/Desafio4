@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>BOOTCAMP</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th scope="col">Listado clientes</th>
+    </tr>
+    </thead>
+    <tbody>
+    <th:block th:each="customer : ${customerList}">
+        <tr>
+            <td scope="row" th:text="${customer.name} +' '+ ${customer.lastName}"></td>
+        </tr>
+    </th:block>
+    </tbody>
+</table>
+
+</body>
+</html>

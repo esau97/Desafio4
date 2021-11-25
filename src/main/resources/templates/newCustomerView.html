@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>BOOTCAMP</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body class="card-body">
+<div class="card text-white bg-dark mb-3">
+    <div class="card-header">Create customer.</div>
+    <div class="card-body">
+        <form th:action="@{./createCustomer}" th:object="${newCustomer}" method="POST">
+            <div class="form-group">
+                <label for="inpNombre">Name</label>
+                <input type="text" required="required" class="form-control" id="inpTNombre" name="name" placeholder="Pepe">
+            </div>
+            <div class="form-group">
+                <label for="inpLastName">LastName</label>
+                <input type="text" required="required" class="form-control" id="inpTLastName" name="lastName" placeholder="Perez">
+            </div>
+            <div class="form-group">
+                <label for="inpDate"></label>
+                <input required="required" type="text" class="form-control" id="inpTDate" name="dateN" placeholder="2010-03-03">
+            </div>
+            <div class="form-group">
+                <label for="inpDni"></label>
+                <input required="required" type="text" class="form-control" id="inpTDni" name="dni" placeholder="00000000X">
+            </div>
+
+            <button type="submit" name="btnCreateCustomer" class="btn btn-success">Create</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
