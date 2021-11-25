@@ -1,12 +1,11 @@
 package com.esauhp.desafio4.services;
 
 import com.esauhp.desafio4.repository.Customer;
+import com.esauhp.desafio4.repository.CustomerRepositoryI;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.LinkedList;
 import java.util.List;
 
 @Service
@@ -14,64 +13,43 @@ import java.util.List;
 public class CustomerManagementImpl implements CustomerManagementServiceI {
 
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    @Autowired
+    private CustomerRepositoryI customerRepositoryI;
 
     // Nos permite consultar con nuestra base de datos si existe un cliente con el mismo nombre, si existe uno o más de un cliente se devuelve una lista con todos ellos
     @Override
     public List<Customer> findByName(String nombre) {
-        String consulta ="FROM Customer WHERE nombre=:nombre";
-        List<Customer> customerList = entityManager.createQuery(consulta)
-                .setParameter("nombre",nombre)
-                .getResultList();
-        if(customerList.isEmpty()){
-            return new LinkedList<>();
-        }
-        return customerList;
+        return customerRepositoryI.findByName(nombre);
     }
 
     // Esta consulta nos devuelve el cliente (En caso de que este exista)
     @Override
     public Customer getClientes(Customer customer) {
-        String consulta ="FROM Customer WHERE nombre=:nombre";
-        List<Customer> customerList = entityManager.createQuery(consulta)
-                .setParameter("nombre", customer.getName())
-                .getResultList();
-        if(customerList.isEmpty()){
-            return null;
-        }
-        return customerList.get(0);
+        return customerRepositoryI.getClientes(customer);
     }
 
     // Se obtiene la lista de los clientes que se encuentran en la base de datos
     @Override
     public List<Customer> getCustomersList() {
-        String consulta = "FROM Customer";
-        List<Customer> customerList = entityManager.createQuery(consulta)
-                .getResultList();
-        if(customerList.isEmpty()){
-            return null;
-        }
-        return customerList;
+        return customerRepositoryI.getCustomersList();
     }
 
     // Añadimos un nuevo cliente
     @Override
     public void addCustomer(Customer customer) {
-        entityManager.merge(customer);
+        customerRepositoryI.addCustomer(customer);
     }
 
     // Eliminamos un cliente dado su id
     @Override
     public void deleteCustomer(long id) {
-        Customer customer = entityManager.find(Customer.class,id);
-        entityManager.remove(customer);
+        customerRepositoryI.deleteCustomer(id);
     }
 
     // Si el cliente existe en la base de datos lo actualiza
     @Override
     public void updateCustomer(Customer customer) {
-        entityManager.merge(customer);
+        customerRepositoryI.updateCustomer(customer);
     }
 
 
